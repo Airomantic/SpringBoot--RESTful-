@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用 CORS</title>
+    <script>
+        function refreshPrice(date) {
+            var p = document.getElementById('test-jsonp');
+            p.innerText = '当前价格' +
+                data['0000001'].name + ':' +
+                data['0000001'].price + ';' +
+                data['1399001'].name + ':' +
+                data['1399001'].price;
+        }
+        function getPrice() {
+            var js = document.createElement('script');
+            head = document.getElementsByTagName('head')[0];
+            //向跨域网站发送请求资源，并在得到资源后调用refreshPrice函数
+            js.src = 'http://api.money.126.net/data/feed/0000001,1399001? callback=refreshPrice';
+
+            head.append(js);
+            //append()是往动态字符串数组添加，如“x”+“y”相当那个‘+’号
+        }
+    </script>
+</head>
+<body>
+<div>
+    <p>CORS应用——以163的股票查询URL为例，URL为http://api.money.126.net</p>
+    <button type="button" onclick="getPrice()">刷新</button>
+    <p id="test-jsonp"></p>
+</div>
+</body>
+</html>
